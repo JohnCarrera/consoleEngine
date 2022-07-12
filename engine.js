@@ -9,26 +9,26 @@ class KeyboardHandler{
     process.stdin.setRawMode(true);
   }
 
-  getKeys(){
-    process.stdin.on('keypress', (str, key) => {
-      if (key.ctrl && key.name === 'c') {
-        process.exit();
-      } else {
-        console.clear();
-        console.log(`You pressed the "${str}" key`);
-        console.log();
-        console.log(key);
-        console.log();
-      }
-    });
-  }
 
+
+  getKeys(cb){
+    process.stdin.on('keypress', cb(str, key));
+  }
 
 }
 
 
+const cb = (str, key) => {
 
-let table = {
-  hp: 25,
-  mp: 50,
+  (str, key) => {                             // pass all of callback fn into get keys
+    if (key.ctrl && key.name === 'c') {
+      process.exit();
+    } else {
+      console.clear();
+      console.log(`You pressed the "${str}" key`);
+      console.log();
+      console.log(key);
+      console.log();
+    }
+  }
 }
